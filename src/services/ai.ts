@@ -1544,7 +1544,8 @@ interface Hit {
 
 function judgeLine(line: string, tags: readonly PersonalityTag[]) {
   const hits: Hit[] = []
-  if (GOOD_RE.test(line)) {
+  const takingBack = /收回|不再提|别再说|不说这句/.test(line)
+  if (GOOD_RE.test(line) && !takingBack) {
     hits.push({
       id: 'good',
       impact: hasTag(tags, '对“为你好”高度敏感') ? 18 : 8,
@@ -1558,7 +1559,7 @@ function judgeLine(line: string, tags: readonly PersonalityTag[]) {
       order: 1,
     })
   }
-  if (/交出来|没收|上交|密码|翻看|把手机|查账单|消费记录/.test(line)) {
+  if (/交出来|(?<!不)没收|上交|密码|翻看|把手机|砸了|摔了|扔掉|查账单|消费记录/.test(line)) {
     hits.push({
       id: 'seize',
       impact: hasTag(tags, '对被翻看手机很警惕') ? 18 : 8,
@@ -1583,10 +1584,10 @@ function judgeLine(line: string, tags: readonly PersonalityTag[]) {
   if (/愿意|可以告诉我|你怎么想|你怎么看/.test(line)) {
     hits.push({ id: 'ask', impact: -8, order: 8 })
   }
-  if (/先不谈|等你准备好|对不起|我放下|不逼|不催|我不问|先不问/.test(line)) {
+  if (/先不谈|等你准备好|对不起|我放下|不逼|不催|我不问|先不问|不抢|不没收|收回|按你的来/.test(line)) {
     hits.push({ id: 'retreat', impact: -14, order: 9 })
   }
-  if (/你来定|你决定|你选|我听你/.test(line)) {
+  if (/你来定|你自己定|自己说一个|你决定|你选|我听你/.test(line)) {
     hits.push({ id: 'choice', impact: -6, order: 10 })
   }
 
