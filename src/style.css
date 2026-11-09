@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f5f7f2;
+  --color-mist: #ebefe5;
+  --color-ink: #2c3e35;
+  --color-card: #fbfcf8;
+  --color-moss: #5f7a68;
+  --color-moss-deep: #3e5648;
+  --color-emergency: #b23a2e;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC",
+    "WenQuanYi Micro Hei", "Microsoft YaHei", sans-serif;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #d5ddd0;
+  color: #2c3e35;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: #d5e0d6;
+}
+
+:focus-visible {
+  outline: 2px solid #5f7a68;
+  outline-offset: 3px;
+}
+
+.soft-card {
+  border-radius: 22px;
+  background: #fbfcf8;
+  padding: 20px;
+  box-shadow: 0 10px 28px rgba(44, 62, 53, 0.05);
+}
+
+.caption {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: rgba(44, 62, 53, 0.72);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
