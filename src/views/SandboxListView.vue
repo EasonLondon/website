@@ -1,28 +1,46 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { listConflicts } from '../services/ai'
+import Mark from '../components/Mark.vue'
 
 const scenes = listConflicts()
+
+const iconFor: Record<string, string> = {
+  phone: 'phone',
+  grades: 'paper',
+  silent: 'quiet',
+  compare: 'balance',
+  homework: 'pen',
+  door: 'door',
+  tutor: 'campus',
+  sleep: 'moon',
+  gather: 'people',
+  topup: 'coin',
+}
 </script>
 
 <template>
-  <main class="px-5 pb-28 pt-7">
-    <h1 class="text-[26px] leading-tight">沙盘</h1>
-    <p class="mt-2 text-[16px] leading-relaxed text-ink/75">
-      先在这里说一遍。看他可能怎么接，也看看这句话会不会把门带上。不是考试。
-    </p>
-    <div class="mt-5 space-y-3">
+  <main class="page">
+    <header class="rise-item">
+      <h1 class="page-title">沙盘</h1>
+      <p class="lede">先在这里说一遍。看他可能怎么接，也看看这句话会不会把门带上。不是考试。</p>
+    </header>
+
+    <div class="sheet rise mt-8">
       <RouterLink
         v-for="item in scenes"
         :key="item.id"
         :to="`/sandbox/${item.id}`"
-        class="soft-card flex min-h-[84px] items-center gap-3 active:scale-[0.99]"
+        class="flex min-h-[84px] items-center gap-3 px-4 py-3.5 active:bg-mist/70"
       >
-        <span class="min-w-0 flex-1">
-          <span class="block text-[18px]">{{ item.title }}</span>
-          <span class="mt-1 block text-[15px] leading-relaxed text-ink/70">{{ item.summary }}</span>
+        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-mist text-moss-deep">
+          <Mark :name="iconFor[item.id] ?? 'sandbox'" :size="20" />
         </span>
-        <span aria-hidden="true" class="text-[22px] text-ink/40">›</span>
+        <span class="min-w-0 flex-1">
+          <span class="block text-[17px]">{{ item.title }}</span>
+          <span class="mt-0.5 block text-[14px] leading-relaxed text-ink/65">{{ item.summary }}</span>
+        </span>
+        <Mark name="chevron" :size="18" class="text-ink/30" />
       </RouterLink>
     </div>
   </main>
